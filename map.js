@@ -59,14 +59,26 @@ function initMap() {
     map: map
   });
 
+  heatmap.set('radius', 25);
+
+
   //INTEGRATION CODE HERE
   reloadWithHour = function(hour) {
 
+    var pointsList = [];
+    var latLongArray = _DATA[hour];
+    latLongArray.forEach(function(item) {
+      pointsList.push(
+        new google.maps.LatLng(item[1], item[0])
+      );
+    });
+/*
     pointsList = [
-      new google.maps.LatLng(40.120422, -88.229368 + hour/10000)
-    ];
+      new google.maps.LatLng(40.120422, -88.229368 + hour/1000)
+    ];*/
 
-    var points = new google.maps.MVCArray(pointsList);
+    points = new google.maps.MVCArray(pointsList);
+    heatmap.setData(points);
   }
 }
 
