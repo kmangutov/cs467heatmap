@@ -5,6 +5,7 @@ var updateLabel = function(hour) {
   var tag = hour > 11? "pm" : "am";
 
   $('#display-time').text(displayTime + " " + tag);
+  reloadWithHour(hour);
 }
 
 var slider = $('#slider');

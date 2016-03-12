@@ -1,18 +1,6 @@
 
 var map, heatmap;
 
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 13,
-    center: {lat: 40.110187, lng: -88.228841},
-    mapTypeId: google.maps.MapTypeId.SATELLITE
-  });
-
-  heatmap = new google.maps.visualization.HeatmapLayer({
-    data: getPoints(),
-    map: map
-  });
-}
 
 function toggleHeatmap() {
   heatmap.setMap(heatmap.getMap() ? null : map);
@@ -46,10 +34,41 @@ function changeOpacity() {
   heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
 }
 
-// Heatmap data: 500 Points
-function getPoints() {
-  return [
-// coordinates go here
-    new google.maps.LatLng(40.110422, -88.229368)
+var points;
+var reloadWithHour;
+
+
+
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 16,
+    center: {lat: 40.110187, lng: -88.228841},
+    mapTypeId: google.maps.MapTypeId.SATELLITE
+  });
+
+  pointsList = [
+    new google.maps.LatLng(40.120422, -88.229368)
   ];
+
+  var points = new google.maps.MVCArray(pointsList);
+
+
+  heatmap = new google.maps.visualization.HeatmapLayer({
+    data: points,
+    map: map
+  });
+
+  //INTEGRATION CODE HERE
+  reloadWithHour = function(hour) {
+
+    pointsList = [
+      new google.maps.LatLng(40.120422, -88.229368 + hour/10000)
+    ];
+
+    var points = new google.maps.MVCArray(pointsList);
+  }
 }
+
+
+
